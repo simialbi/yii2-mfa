@@ -56,9 +56,9 @@ class TotpAction extends Action
     {
         /** @var \simialbi\yii2\mfa\models\TotpIdentityInterface $identity */
         $identity = Yii::$app->session->get('mfa-half-user');
-        $form = new TotpForm($identity);
+        $model = new TotpForm($identity);
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::$app->user->detachBehavior('validateMfa');
             Yii::$app->user->login($identity);
 
@@ -66,7 +66,7 @@ class TotpAction extends Action
         }
 
         return $this->controller->render($this->view, [
-            'form' => $form,
+            'model' => $model,
             'identity' => $identity,
             'suffix' => $this->bsSuffix
         ]);
