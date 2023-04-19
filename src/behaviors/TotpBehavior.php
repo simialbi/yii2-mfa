@@ -32,7 +32,10 @@ class TotpBehavior extends Behavior
      */
     public function beforeLogin(UserEvent $event): void
     {
-        if (is_null($this->totpRoute)) {
+        if ($event->cookieBased) {
+            return;
+        }
+        if ($this->totpRoute === null) {
             throw new InvalidConfigException('The `totpRoute` has to be set!');
         }
         $event->isValid = false;

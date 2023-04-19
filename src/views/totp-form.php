@@ -3,7 +3,7 @@
 use yii\widgets\MaskedInput;
 
 /** @var $this \yii\web\View */
-/** @var $form \simialbi\yii2\mfa\models\TotpForm */
+/** @var $model \simialbi\yii2\mfa\models\TotpForm */
 /** @var $identity \simialbi\yii2\mfa\models\TotpIdentityInterface */
 /** @var $suffix string */
 
@@ -18,9 +18,9 @@ $html = "\\yii\\bootstrap$suffix\\Html";
 
     <div class="row form-row g-3">
         <div class="col-xs-8 col-8 col-xs-offset-2 offset-2">
-            <p><?= Yii::t('simialbi/mfa', 'Please enter the 6 digit long token from your preferred authenticator app.') ?></p>
-            <?= $form->field($form, 'token')->widget(MaskedInput::class, [
-                'mask' => '9 9 9 9 9 9'
+            <p><?= Yii::t('simialbi/mfa', 'Please enter the 6 digit long token from your preferred authenticator app.'); ?></p>
+            <?= $form->field($model, 'token')->widget(MaskedInput::class, [
+                'mask' => '999999'
             ]); ?>
         </div>
     </div>

@@ -9,16 +9,16 @@ interface TotpIdentityInterface extends IdentityInterface
     /**
      * {@inheritDoc}
      *
-     * @return static
+     * @return mixed
      */
-    public static function findIdentity($id): static;
+    public static function findIdentity($id): mixed;
 
     /**
      * {@inheritDoc}
      *
-     * @return static
+     * @return mixed
      */
-    public static function findIdentityByAccessToken($token, $type = null): static;
+    public static function findIdentityByAccessToken($token, $type = null): mixed;
 
     /**
      * Get the totp token

@@ -59,7 +59,7 @@ class TotpAction extends Action
         $form = new TotpForm($identity);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            Yii::$app->user->detachBehavior('mfa-totp');
+            Yii::$app->user->detachBehavior('validateMfa');
             Yii::$app->user->login($identity);
 
             return $this->controller->redirect($this->redirectRoute);
