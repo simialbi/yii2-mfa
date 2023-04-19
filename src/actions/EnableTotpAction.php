@@ -50,7 +50,7 @@ class EnableTotpAction extends Action
         }
 
         if (Yii::$app->user->identity->getTotpToken()) {
-            Yii::$app->session->addFlash('danger', Yii::t('simialbi/mfa/notification', 'Tow factor authentication is already enabled.'));
+            Yii::$app->session->addFlash('danger', Yii::t('simialbi/mfa/notification', 'Two factor authentication is already enabled.'));
 
             $response = $this->controller->goBack();
             $response->send();

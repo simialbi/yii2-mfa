@@ -22,7 +22,19 @@ msgctxt "simialbi/mfa/model/totp-form"
 msgid "Token"
 msgstr "Token"
 
+msgctxt "simialbi/mfa/notification"
+msgid "Two factor authentication is already enabled."
+msgstr "Die Zweifaktorauthentifizierung ist bereits aktiv."
+
+msgctxt "simialbi/mfa/notifications"
+msgid "You have to activate two factor authentication to access this resource."
+msgstr "Sie müssen die Zweifaktorauthentifizierung aktivieren um hierauf zugreifen zu können."
+
 msgctxt "simialbi/mfa/validator"
 msgid "Invalid token."
+msgstr "Ungültiger Token."
+
+msgctxt "simialbi/mfa/validator"
+msgid "Token invalid."
 msgstr "Ungültiger Token."
 
