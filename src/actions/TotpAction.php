@@ -5,13 +5,24 @@ namespace simialbi\yii2\mfa\actions;
 use simialbi\yii2\mfa\models\TotpForm;
 use Yii;
 use yii\base\Action;
+use yii\web\ForbiddenHttpException;
 
 class TotpAction extends Action
 {
     /**
-     * @var string|array|null The route or url to redirect to after login
+     * @var string|array The route or url to redirect to after login
      */
-    public string|array|null $redirectRoute = null;
+    public string|array $redirectRoute;
+
+    /**
+     * @var string|array The route to the [[\simialbi\yii2\mfa\actions\EnableTotpAction]].
+     */
+    public string|array $enableTotpRoute;
+
+    /**
+     * @var int Number of seconds that the user can remain in logged-in status, defaults to `0`
+     */
+    public int $loginDuration = 0;
 
     /**
      * @var string The view to render the form. The following parameters will be passed:
@@ -32,7 +43,7 @@ class TotpAction extends Action
     {
         parent::init();
 
-        if (is_null($this->redirectRoute)) {
+        if (!isset($this->redirectRoute)) {
             $this->redirectRoute = Yii::$app->homeUrl;
         }
         if (isset(Yii::$app->params['bsVersion'])) {
@@ -51,6 +62,8 @@ class TotpAction extends Action
      * Run the totp action
      *
      * @return string|\yii\web\Response
+     *
+     * @throws ForbiddenHttpException
      */
     public function run(): string|\yii\web\Response
     {
@@ -58,12 +71,24 @@ class TotpAction extends Action
         $identity = Yii::$app->session->get('mfa-half-user');
         $model = new TotpForm($identity);
 
+        if (empty($identity->getTotpToken())) {
+            if (isset($this->enableTotpRoute)) {
+                return $this->controller->redirect($this->enableTotpRoute);
+            }
+
+            throw new ForbiddenHttpException(Yii::t(
+                'simialbi/mfa/notifications',
+                'You have to activate two factor authentication to access this resource.'
+            ));
+        }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::$app->user->detachBehavior('validateMfa');
-            Yii::$app->user->login($identity);
+            Yii::$app->user->login($identity, $this->loginDuration);
 
             return $this->controller->redirect($this->redirectRoute);
         }
+
+        $model->token = '';
 
         return $this->controller->render($this->view, [
             'model' => $model,
