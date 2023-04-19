@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "simialbi/mfa"
+msgid "Please enter the 6 digit long token from your preferred authenticator app."
+msgstr "Immettere il code di 6 cifre dall'app di autenticazione preferita."
+
+msgctxt "simialbi/mfa"
+msgid "Submit"
+msgstr "Invia"
+
+msgctxt "simialbi/mfa/model/totp-form"
+msgid "Token"
+msgstr "Code"
+
+msgctxt "simialbi/mfa/validator"
+msgid "Invalid token."
+msgstr "Code non valido."
+
