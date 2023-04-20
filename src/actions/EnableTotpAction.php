@@ -35,7 +35,7 @@ class EnableTotpAction extends Action
 
     /**
      * {@inheritDoc}
-     * @throws ForbiddenHttpException
+     * @throws ForbiddenHttpException|\yii\base\ExitException
      */
     public function init(): void
     {
@@ -54,7 +54,7 @@ class EnableTotpAction extends Action
 
             $response = $this->controller->goBack();
             $response->send();
-            exit;
+            Yii::$app->end();
         }
 
         if (isset(Yii::$app->params['bsVersion'])) {

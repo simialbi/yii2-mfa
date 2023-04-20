@@ -28,7 +28,7 @@ class TotpBehavior extends Behavior
     /**
      * @param UserEvent $event
      * @return void
-     * @throws InvalidConfigException
+     * @throws InvalidConfigException|\yii\base\ExitException
      */
     public function beforeLogin(UserEvent $event): void
     {
@@ -42,6 +42,6 @@ class TotpBehavior extends Behavior
         Yii::$app->session->set('mfa-half-user', $event->identity);
         $response = Yii::$app->controller->redirect($this->totpRoute);
         $response->send();
-        exit;
+        Yii::$app->end();
     }
 }
