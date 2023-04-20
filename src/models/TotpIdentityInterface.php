@@ -30,9 +30,9 @@ interface TotpIdentityInterface extends IdentityInterface
     /**
      * Get the totp token
      *
-     * @return string
+     * @return string|null
      */
-    public function getTotpToken(): string;
+    public function getTotpToken(): ?string;
 
     /**
      * Set the totp token

@@ -46,7 +46,11 @@ class EnableTotpAction extends Action
         }
 
         if (!Yii::$app->user->identity) {
-            throw new ForbiddenHttpException('The user has to be logged in to perform this action.');
+            if (Yii::$app->session->has('mfa-half-user')) {
+                Yii::$app->user->switchIdentity(Yii::$app->session->get('mfa-half-user'));
+            } else {
+                throw new ForbiddenHttpException('The user has to be logged in to perform this action.');
+            }
         }
 
         if (Yii::$app->user->identity->getTotpToken()) {

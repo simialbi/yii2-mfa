@@ -11,9 +11,9 @@ use yii\web\UserEvent;
 class TotpBehavior extends Behavior
 {
     /**
-     * @var string|array|null The route to the controller containing the [[\simialbi\yii2\mfa\actions\TotpAction]].
+     * @var string|array The route to the controller containing the [[\simialbi\yii2\mfa\actions\TotpAction]].
      */
-    public string|array|null $totpRoute = null;
+    public string|array $totpRoute;
 
     /**
      * {@inheritDoc}
@@ -35,7 +35,7 @@ class TotpBehavior extends Behavior
         if ($event->cookieBased) {
             return;
         }
-        if ($this->totpRoute === null) {
+        if (!isset($this->totpRoute)) {
             throw new InvalidConfigException('The `totpRoute` has to be set!');
         }
         $event->isValid = false;
