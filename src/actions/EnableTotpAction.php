@@ -92,6 +92,15 @@ class EnableTotpAction extends Action
             Yii::$app->user->identity->save();
             return $this->controller->redirect($this->redirectRoute);
         }
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->controller->renderAjax($this->view, [
+                'model' => $model,
+                'totp' => $totp,
+                'identity' => Yii::$app->user->identity,
+                'suffix' => $this->bsSuffix
+            ]);
+        }
 
         return $this->controller->render($this->view, [
             'model' => $model,
